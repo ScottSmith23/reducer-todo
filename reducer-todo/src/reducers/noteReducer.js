@@ -25,7 +25,7 @@ export const noteReducer = (state, action) => {
       return {
         ...state,
         todo: state.todo.map(task => {
-            if (task.id === clickedItemId) {
+            if (task.id === action.value) {
               return {
                 ...task,
                 completed: !task.completed
@@ -42,7 +42,7 @@ export const noteReducer = (state, action) => {
       };
     case "ADD_TASK":
         const newTask = {
-            task: taskName,
+            task: action.value,
             id: new Date(),
             completed: false
           };

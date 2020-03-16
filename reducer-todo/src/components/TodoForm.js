@@ -15,7 +15,7 @@ const TodoForm = (props) => {
   // class property to submit form
   const submitForm = e => {
     e.preventDefault();
-    props.addTask(state.task);
+    props.dispatch({ type: "ADD_TASK",value:state.task});
     console.log(state.task);
     setState({
         task: ""
