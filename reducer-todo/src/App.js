@@ -1,45 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import TodoList from './components/TodoList'
 import TodoForm from './components/TodoForm'
 import './App.css';
-
+import { noteReducer, initialState } from "../reducers/titleReducer";
 
 
 
 function App() {
-  const list = [
-    {
-      task: 'Organize Garage',
-      id: 1528817077286,
-      completed: false
-    },
-    {
-      task: 'Bake Cookies',
-      id: 1528817084358,
-      completed: false
-    }
-  ];
-  
+  const [state,dispatch] = useReducer(noteReducer,initialState)
+  // const [state,setState] = useState({
+  //   todo: list,
+  //   task: ""
+  // })
 
-  const [state,setState] = useState({
-    todo: list,
-    task: ""
-  })
-
-  const toggleCompleted = clickedItemId => {
-    setState({
-      todo: state.todo.map(task => {
-        if (task.id === clickedItemId) {
-          return {
-            ...task,
-            completed: !task.completed
-          };
-        } else {
-          return task;
-        }
-      })
-    });
-  };
+  // const toggleCompleted = clickedItemId => {
+  //   setState({
+  //     todo: state.todo.map(task => {
+  //       if (task.id === clickedItemId) {
+  //         return {
+  //           ...task,
+  //           completed: !task.completed
+  //         };
+  //       } else {
+  //         return task;
+  //       }
+  //     })
+  //   });
+  // };
 
   const clearCompleted = e => {
     setState({
@@ -63,7 +50,7 @@ function App() {
   return (
     <div className="todoList">
         <h2>Welcome to your Todo App!</h2>
-      <TodoList todo={state.todo} toggleCompleted={toggleCompleted} clearCompleted={clearCompleted}/>
+      <TodoList todo={state.todo} toggleCompleted={() =>dispatch({ type: "TOGGLE_COMPLETED"})} clearCompleted={clearCompleted}/>
       <TodoForm addTask={addTask} />
       </div>
   );
